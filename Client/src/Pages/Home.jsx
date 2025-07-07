@@ -2,7 +2,9 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div className='border w-full h-screen sm:px-[15%] sm:py-[5%]'>
+
+    </div>
   )
 }
 
