@@ -1,5 +1,5 @@
 import React from 'react'
-import assets from '../assets/assets'
+import assets, { imagesDummyData } from '../assets/assets'
 
 const Rightbar = ({selectedUser}) => {
   return selectedUser && (
@@ -16,8 +16,19 @@ const Rightbar = ({selectedUser}) => {
         <hr className='border-[#ffffff50] my-4' />
 
         <div className='text-xs px-5'>
-            
+            <p>Media</p>
+            <div className='mt-2 max-h-[200px] overflow-y-scroll grid grid-cols-2 gap-4 opacity-80'>
+                {imagesDummyData.map((img,idx) => (
+                    <div key={idx} onClick={()=> window.open(img)} className='cursor-pointer rounded'>
+                        <img src={img} className='h-full rounded-md'/>
+                    </div>
+                ))}
+            </div>
         </div>
+
+        <button className='absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-400 to-violet-600 text-white border-none text-sm font-light py-2 px-20 rounded-full cursor-pointer'>
+            Logout
+        </button>
     </div>
   )
 }
