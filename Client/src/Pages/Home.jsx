@@ -11,9 +11,9 @@ const Home = () => {
             h-[100%] grid grid-cols-2 relative backdrop-blur-xl ${selectedUser ? 
             "md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]" : "md:grid-cols-2" }`}
         >
-            <Sidebar />
-            <ChatContainer />
-            <Rightbar />
+            <Sidebar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
+            <ChatContainer selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+            <Rightbar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
         </div>
     </div>
   )
