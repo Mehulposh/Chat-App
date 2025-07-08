@@ -1,5 +1,6 @@
 import React, { useRef,useEffect } from 'react'
 import assets, { messagesDummyData } from '../assets/assets'
+import { formatTime } from '../Library/utils';
  
 
 const ChatContainer = ({setSelectedUser,selectedUser}) => {
@@ -12,7 +13,7 @@ const ChatContainer = ({setSelectedUser,selectedUser}) => {
     },[])
 
 
-return selectedUser? (
+return selectedUser ? (
     <div className='h-full overflow-scroll relative backdrop-blur-lg'>
         <div className='flex items-center gap-3 py-3 mx-4 border-b border-stone-500'>
             <img src={assets.profile_martin} className='rounded-full w-8'/>
@@ -24,7 +25,7 @@ return selectedUser? (
             <img src={assets.help_icon} className='max-md:hidden max-w-5'/>
         </div>
 
-        <div className='flex flex-col h-[calc(100% - 120)] overflow-y-scroll p-3 pb-6'>
+        <div className='flex flex-col h-[calc(100%-120px)] overflow-y-scroll p-3 pb-6'>
             {messagesDummyData.map((msg,idx) => (
                 <div key={idx} className= {`flex items-end justify-end gap-2 ${msg.senderId !== '680f50e4f10f3cd28382ecf9' && "flex-row-reverse"}`}>
                     {msg.image ? (
@@ -43,7 +44,7 @@ return selectedUser? (
                             className='rounded-full w-7' 
 
                         />
-                        <p className='text-gray-500'>{msg.createdAt}</p>
+                        <p className='text-gray-500'>{formatTime(msg.createdAt)}</p>
                     </div>
                 </div>
             ))}
