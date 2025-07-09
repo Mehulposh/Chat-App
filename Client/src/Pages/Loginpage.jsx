@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/Authcontext';
 export const Loginpage = () => {
     const [state, setState] = useState('Sign Up');
     const [formData, setFormData] = useState({
-        'name': '',
+        'fullname': '',
         'email': '',
         'password': '',
         'bio': '',
@@ -14,8 +14,7 @@ export const Loginpage = () => {
 
     const {login} = useContext(AuthContext);
 
-    console.log(formData);
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -49,8 +48,8 @@ export const Loginpage = () => {
                     className='p-2 border border-gray-400 rounded-md focus:outline-none ' 
                     placeholder='Full Name' 
                     required
-                    onChange={(e) => setFormData({...formData , 'name': e.target.value})}
-                    value={formData.name}
+                    onChange={(e) => setFormData({...formData , 'fullname': e.target.value})}
+                    value={formData.fullnamename}
                     />
 
             )}

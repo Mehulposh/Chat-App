@@ -30,7 +30,8 @@ export const AuthProvider = ({children}) => {
     //login function to handle user authentication and socket connection 
     const login = async (state,credentials) => {
         try {
-            const data = await axios.post(`/api/auth/${state}`, credentials);
+            const response = await axios.post(`/api/auth/${state}`, credentials);
+            const data = response.data;
 
             if(data.success){
                 setAuthUser(data.userData);
@@ -40,9 +41,11 @@ export const AuthProvider = ({children}) => {
                 localStorage.setItem('token',data.token); 
                 toast.success(data.message);
             }else{
+                console.log(data.message)
                 toast.error(data.message);
             }
         } catch (error) {
+            console.log(error.message);
             toast.error(error.message);
         }
     }
