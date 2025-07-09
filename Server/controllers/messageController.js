@@ -1,3 +1,4 @@
+import cloudinary from "../LIB/cloudinary.js";
 import Message from "../models/message.js";
 import User from "../models/user.js";
 
@@ -62,6 +63,39 @@ export const markMsgAsSeen = async (req,res) => {
         await Message.findByIdAndUpdate(id,{seen: true});
         res.json({success:true});
 
+    } catch (error) {
+        console.log(error.messages);
+        
+        res.json({success: false, message: error.message});
+    }
+}
+
+
+//send message
+export const sendMessage = async (req,res) => {
+    try {
+        const {text,image} = req.body;
+        const receiverID = req.params.id;
+        const senderID = req.user._id;
+
+        let imgURL ;
+
+        if(image) {
+            const uploadRes = await cloudinary.uploader.upload(image);
+            imgURL = uploadRes.secure_url;
+
+        }
+
+        const newMsg = await Message.create({
+            senderID,
+            receiverID,
+            text,
+            image: imgURL,
+            });
+         
+        res.json({success:true , newMsg});
+
+        
     } catch (error) {
         console.log(error.messages);
         

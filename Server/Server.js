@@ -4,6 +4,7 @@ import cors from 'cors';
 import http from 'http';
 import { connectDB } from './LIB/db.js';
 import userRouter from './routes/userRoute.js';
+import messageRouter from './routes/messageRoutes.js';
 
 //Create Express app and HTTP server 
 
@@ -20,6 +21,7 @@ app.use(cors());
 
 app.use('/api/status', (req,res) => res.send('server is live') );
 app.use('/api/auth',userRouter)
+app.use('/api/messages',messageRouter);
 
 //Connect to DB
 await connectDB();
