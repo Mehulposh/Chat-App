@@ -1,9 +1,9 @@
 import bcrypt, { hash } from 'bcryptjs';
 import {generateToken} from '../LIB/utils';
-//Signup a new user
-
 import User from "../models/user";
 import cloudinary from '../LIB/cloudinary';
+
+//Signup a new user
 
 export const signup = async (req,res) => {
     const {fullname,email,password,bio} = req.body;
@@ -81,6 +81,7 @@ export const updateProfile = async (req,res) => {
 
         }else{
             const upload = await cloudinary.uploader.upload(profilePic);
+            
             updatedUser = await User.findByIdAndUpdate(userId,{profilePic: upload.secure_url, bio, fullname}, {new: true});
         }
 
