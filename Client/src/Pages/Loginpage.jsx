@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import assets from '../assets/assets'
+import { AuthContext } from '../../context/Authcontext';
 
 export const Loginpage = () => {
     const [state, setState] = useState('Sign Up');
@@ -11,6 +12,8 @@ export const Loginpage = () => {
     });
     const [submitted, setSubmitted] = useState(false);
 
+    const {login} = useContext(AuthContext);
+
     console.log(formData);
 
     const handleSubmit = (e) => {
@@ -20,6 +23,7 @@ export const Loginpage = () => {
             setSubmitted(true);
             return;
         }
+        login(state==='Sign Up' ? 'signup' : "login", formData);
     }
 
   return (
