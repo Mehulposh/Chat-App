@@ -38,6 +38,7 @@ export const login = async (req,res) => {
 
     try {
         const {email,password} = req.body;
+
         const userData = await User.findOne({email});
 
         const isPasswordCorrect = await bcrypt.compare(password,userData.password);
@@ -49,9 +50,17 @@ export const login = async (req,res) => {
         const token = generateToken(userData._id);
 
         res.json({success: true,userData,token, message: ' Login successfully'});
+
     } catch (error) {
         res.json({success: false, message: error.message})
         console.log(error.message);
     }
 
+}
+
+
+//Controller to chack is user is authenticated
+
+export const checkAuth = (req,res) => {
+    res.json({success: true, user: req.user});
 }
