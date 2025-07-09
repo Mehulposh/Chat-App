@@ -3,6 +3,7 @@ import {generateToken} from '../LIB/utils';
 //Signup a new user
 
 import User from "../models/user";
+import cloudinary from '../LIB/cloudinary';
 
 export const signup = async (req,res) => {
     const {fullname,email,password,bio} = req.body;
@@ -63,4 +64,29 @@ export const login = async (req,res) => {
 
 export const checkAuth = (req,res) => {
     res.json({success: true, user: req.user});
+}
+
+//Controller to update user profile details
+ 
+export const updateProfile = async (req,res) => {
+    try {
+        const {profilePic, bio, fullname} = req.body;
+
+        const userId = req.user._id;
+
+        let updatedUser ;
+
+        if(!profilePic ){
+           updatedUser =  await User.findByIdAndUpdate(userId,{bio,fullname}, {new: true});
+
+        }else{
+            const upload = await cloudinary.uploader.upload(profilePic);
+            updatedUser = await User.findByIdAndUpdate(userId,{profilePic: upload.secure_url, bio, fullname}, {new: true});
+        }
+
+        res.json({success:true, user: updatedUser});
+    } catch (error) {
+        res.json({success:false, message: error.message});
+        console.log(error.message);
+    }
 }
