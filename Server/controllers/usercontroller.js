@@ -1,7 +1,7 @@
 import bcrypt, { hash } from 'bcryptjs';
-import {generateToken} from '../LIB/utils';
-import User from "../models/user";
-import cloudinary from '../LIB/cloudinary';
+import {generateToken} from '../LIB/utils.js';
+import User from "../models/user.js";
+import cloudinary from '../LIB/cloudinary.js';
 
 //Signup a new user
 
