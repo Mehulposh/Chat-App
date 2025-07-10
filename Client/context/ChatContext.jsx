@@ -20,7 +20,7 @@ export const ChatProvider = ({children} ) => {
            
            if(data.success){
             setUsers(data.users);
-            setUnseenMsg(data.unseenMsg);
+            setUnseenMsg(data.UnseenMsg);
            }
 
 
@@ -61,7 +61,7 @@ export const ChatProvider = ({children} ) => {
     const subscribeToMessages = async () => {
         if(!socket) return;
 
-        socket.on('newMwssage' , (newMessage) => {
+        socket.on('newMessage' , (newMessage) => {
             if(selectedUser && newMessage.senderID === selectedUser._id){
                 newMessage.seen = true;
                 setMessages((prev) => [...prev,newMessage]);
@@ -94,6 +94,7 @@ export const ChatProvider = ({children} ) => {
         users,
         selectedUser,
         getUsers,
+        getMessages,
         setMessages,
         sendMessage,
         setSelectedUser,

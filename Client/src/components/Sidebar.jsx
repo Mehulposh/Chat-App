@@ -65,7 +65,7 @@ const Sidebar = () => {
                 >
                     <img src={user?.profilePic || assets.avatar_icon } className='rounded-full aspect-[1/1] w-[35px] ' />
                     <div className='flex flex-col leading-5'>
-                        <p>{user.fullname}</p>
+                        <p className='text-sm text-gray-300'>{user.fullname}</p>
                         {
                             onlineUser.includes(user._id) 
                             ? <span className='text-green-400 text-xs'>Online</span>
