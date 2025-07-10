@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import assets from '../assets/assets';
+import { AuthContext } from '../../context/Authcontext';
 
 const Profilepage = () => {
+
+    const {authUser, updateProfile  } = useContext(AuthContext);
+
     const [selectedImg, setSelectedImg] = useState(null);
     const navigate = useNavigate();
-    const [name, setName] = useState('Mehul');
-    const [bio, setBio] = useState('hi everyone'); 
+    const [name, setName] = useState(authUser.fullname);
+    const [bio, setBio] = useState(authUser.bio); 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/');
+        if(!selectedImg){
+            await updateProfile({fullname: name, bio} );
+            navigate('/');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedImg);
+        reader.onload = async () => {
+            const base64Img = reader.result;
+            await updateProfile({profilePic: base64Img, fullname: name, bio});
+            navigate('/');
+        }
+        
     } 
 
   return (
@@ -25,7 +42,7 @@ const Profilepage = () => {
                         onChange={(e) => setSelectedImg(e.target.files[0])}
                         type='file' 
                         id='avatar' 
-                        accept='.png .jpg .jpeg .svg'
+                        accept='.png, .jpg, .jpeg ,.svg'
                         hidden
                         />
                     <img 
@@ -62,7 +79,7 @@ const Profilepage = () => {
             </form>
             <img 
                 src={assets.logo_icon} 
-                className='max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10'
+                className={`max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10 ${selectedImg && "rounded-full"}`}
                 />
         </div>
     </div>
