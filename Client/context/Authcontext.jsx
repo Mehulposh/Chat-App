@@ -81,22 +81,33 @@ export const AuthProvider = ({children}) => {
     const connectSocket = (userData) => {
         if(!userData || socket?.connected) return ;
         const newSocket = io(backendUrl,{
-           query: {userID: userData._id,}
+           query: {userId: userData._id,}
         });
         newSocket.connect();
         setSocket(newSocket);
+        console.log(socket);
 
         newSocket.on('getOnlineUsers', (userIds) => {
+            
             setOnlineUser(userIds)
+            
         })
     }
+
+    // useEffect(() => {
+    //     console.log("Online users updated:", onlineUser);
+    //     console.log("Socket:", socket);
+
+    // }, [onlineUser,socket]);
+
+
     useEffect(() => {
         if(token){
             axios.defaults.headers.common['token'] = token;
         }
         checkAuth();
 
-    },[])
+    },[]);
 
     const value = {
         axios,
