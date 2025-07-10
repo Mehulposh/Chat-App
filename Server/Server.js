@@ -5,7 +5,7 @@ import http from 'http';
 import { connectDB } from './LIB/db.js';
 import userRouter from './routes/userRoute.js';
 import messageRouter from './routes/messageRoutes.js';
-import {initSocket} from '../Server/Socket/socket.js';
+import {initSocket} from './Socket/socket.js';
 import { Socket } from 'dgram';
 import { log } from 'console';
 
