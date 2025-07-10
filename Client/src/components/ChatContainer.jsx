@@ -25,7 +25,7 @@ const ChatContainer = () => {
 
     //handle sending of image
     const handleImage = async (e) => {
-        const file = e.target.file[0];
+        const file = e.target.files[0];
         if(!file || !file.type.startsWith('image/')) {
             toast.error('Select an image file');
             return;
@@ -69,19 +69,19 @@ return selectedUser ? (
 
         <div className='flex flex-col h-[calc(100%-120px)] overflow-y-scroll p-3 pb-6'>
             {messages.map((msg,idx) => (
-                <div key={idx} className= {`flex items-end justify-end gap-2 ${msg.senderId !== authUser._id && "flex-row-reverse"}`}>
+                <div key={idx} className= {`flex items-end justify-end gap-2 ${msg.senderID !== authUser._id && "flex-row-reverse"}`}>
                     {msg.image ? (
                         <img src={msg.image} className='max-w-[230px] border border-gray-700 rounded-lg overflow-hidden mb-8' />
                     ) : (
                         <p className= {`p-2 max-w-[200px] md:text-sm font-light rounded-lg mb-8  break-all bg-violet-500/30
-                             text-white ${msg.senderId === authUser._id ? "rounded-br-none" : "rounded-bl-none"}`}
+                             text-white ${msg.senderID === authUser._id ? "rounded-br-none" : "rounded-bl-none"}`}
                         >
                             {msg.text}
                         </p>
                     )}
                     <div className='text-center text-xs'>
                         <img 
-                            src={msg.senderId === authUser._id ?
+                            src={msg.senderID === authUser._id ?
                                 authUser?.profilePic || assets.avatar_icon : selectedUser?.profilePic ||  assets.avatar_icon} 
                             className='rounded-full w-7' 
 
