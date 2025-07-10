@@ -61,7 +61,8 @@ return selectedUser ? (
             <img src={selectedUser.profilePic || assets.avatar_icon} className='rounded-full w-8'/>
             <p className='flex-1 text-sm text-gray-400  flex items-center gap-2 ' >
                 {selectedUser.fullname}
-                {onlineUser.includes(selectedUser._id)}<span className='w-2 h-2 rounded-full bg-green-300'></span>
+                {onlineUser.includes(selectedUser._id) &&
+                <span className='w-2 h-2 rounded-full bg-green-300'></span>}
             </p>
             <img onClick={() => setSelectedUser(null)} src={assets.arrow_icon} className='md:hidden max-w-7'/>
             <img src={assets.help_icon} className='max-md:hidden max-w-5'/>
